@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+__pycache__/
+db.sqlite3  # Ignore SQLite database (optional, unless you want to commit it)
+*.pyc
+*.pyo
+*.swp
+.DS_Store
+
+# Django settings and environment files
+.env
+*.log
+
+# Compiled files
+staticfiles/
+media/
