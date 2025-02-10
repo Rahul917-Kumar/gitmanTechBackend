@@ -49,7 +49,7 @@ so it will search both first_name and last_name for a user and use or operator t
 ```
 ![image](https://github.com/user-attachments/assets/b3ddd6b4-235e-49f0-bbb2-77e68e8c603b)
 
-#### 3. If two token are provided
+#### 2. If two token are provided
 so the algorithm compares first token to first_name and second token to last_name and take and of it
 
 ![image](https://github.com/user-attachments/assets/5dafc49c-c92c-4e10-ab56-a0564a8d8229)
