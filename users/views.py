@@ -23,6 +23,7 @@ class SearchUserView(APIView):
     def post(self, request):
         try:
             query = request.data["search"]
+            print("query", request.data["search"])
             if len(query) == 0:
                 return Response({"error": "Name parameter is required"}, status=400)
             
