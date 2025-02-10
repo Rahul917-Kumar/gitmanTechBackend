@@ -30,3 +30,8 @@ For every user document, the API computes a matching score based on several crit
             If the words appear swapped (for example, "KD Rahul" instead of "Rahul KD"), a slightly lower score of 3 is given.
 
     This scoring gives preference to the correct order (first name first, last name second) while still allowing for some flexibility.
+
+## Example
+endpoint ``` /users/search-user/ ```
+
+![image](https://github.com/user-attachments/assets/18188863-d4e8-4d30-a265-057fe40e9a2f)
