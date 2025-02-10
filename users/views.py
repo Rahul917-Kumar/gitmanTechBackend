@@ -7,24 +7,19 @@ class SearchUserView(APIView):
     def post(self, request):
         try:
             search_query = request.data["search"]
-            print("Received search query: %s", search_query)
 
             # remove leading/trailing whitespaces 
             search_query = search_query.strip()
-            print("Trimmed search query: %s", search_query)
             
             # if no search query is provided will throw an error
             if len(search_query) == 0:
-                print("Empty search query provided.")
                 return Response({"error": "please provide a valid user name"}, status=400)
             
             tokens = search_query.split()
-            print("Search tokens: %s", tokens)
             
             if len(tokens) == 1:
                 # if we have single token, will search both first_name and last_name using OR
                 token = re.escape(tokens[0])
-                print("Single token detected: %s", token)
                 query = {
                     "$or": [
                         {"first_name": {"$regex": f"^{token}", "$options": "i"}},
@@ -35,13 +30,11 @@ class SearchUserView(APIView):
                 # For multiple tokens, assume the first is first_name and the last is last_name.
                 first = re.escape(tokens[0])
                 last = re.escape(tokens[-1])
-                print("Multiple tokens detected - first: %s, last: %s", first, last)
                 query = {
                     "first_name": {"$regex": f"^{first}", "$options": "i"},
                     "last_name": {"$regex": f"^{last}", "$options": "i"}
                 }
 
-            print("MongoDB query constructed: %s", query)
             users_obj_list = user_collection.find(query)
 
             result = []
@@ -53,7 +46,6 @@ class SearchUserView(APIView):
                     "city": user.get("city", ""),
                     "contact_number": user.get("contact_number", "")
                 })
-            print("Number of users found: %d", len(result))
             
             message = "successfully fetched users list"
             statusCode = status.HTTP_200_OK
@@ -61,7 +53,6 @@ class SearchUserView(APIView):
             if len(result) == 0:
                 message = "No user found with the given search"
                 statusCode = status.HTTP_400_BAD_REQUEST
-                print("No users found for query: %s", search_query)
             return Response({
                 "data":result,
                 "message":message
@@ -69,7 +60,6 @@ class SearchUserView(APIView):
             status=statusCode
             )
         except Exception as e:
-            print("Exception occurred in search_user view: %s", e)
             return Response({
                 "data":[],
                 "message":"Something went wrong"
